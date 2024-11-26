@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #444;
+  }
+  
+  #sensor-data {
+    margin-bottom: 20px;
+  }
+  
+  #controls button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  #controls button:hover {
+    background-color: #0056b3;
+  }
