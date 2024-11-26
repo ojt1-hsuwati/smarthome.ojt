@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.static('public')); // Serve frontend
 
 // MQTT Setup
-const mqttBrokerUrl = 'mqtt://127.0.0.1'; 
+const mqttBrokerUrl = 'mqtt://192.168.0.118'; 
 const mqttClient = mqtt.connect(mqttBrokerUrl, {
   username: 'smarthome',
   password: 'asdffdsa',
