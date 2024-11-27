@@ -6,12 +6,12 @@ const mongoose = require('mongoose');
 const SensorData = require('./models/SensorData'); // Import SensorData model
 const RelayControl = require('./models/RelayControl'); // Import RelayControl model
 const moment = require('moment');
-
 const app = express();
+
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'http://192.168.0.118:3000'
+    origin: '*'
   }
 });
 
