@@ -1,12 +1,15 @@
 const express = require('express');
 const mqtt = require('mqtt');
 const http = require('http');
+const cors = require('cors');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const SensorData = require('./models/SensorData'); // Import SensorData model
 const RelayControl = require('./models/RelayControl'); // Import RelayControl model
 const moment = require('moment');
 const app = express();
+app.use(cors());
+
 
 const server = http.createServer(app);
 const io = socketIo(server, {
