@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.static('public')); // Serve frontend
 
 // MQTT Setup
-const mqttBrokerUrl = 'mqtt://192.168.0.118'; 
+const mqttBrokerUrl = 'mqtt://127.0.0.1'; 
 const mqttClient = mqtt.connect(mqttBrokerUrl, {
   username: 'smarthome',
   password: 'asdffdsa',
@@ -124,5 +124,5 @@ app.get('/api/sensors', (req, res) => {
 // Start Server
 const PORT = 3000;
 server.listen(PORT, () => {
-  console.log(`Server running at http://192.168.0.118:3000`);
+  console.log(`Server running at http://127.0.0.1:3000`);
 });

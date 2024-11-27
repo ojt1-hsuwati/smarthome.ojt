@@ -38,7 +38,7 @@
   <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-    const socket = io('http://192.168.0.118:3000');
+    const socket = io('http://127.0.0.1:3000');
     socket.on('sensorData', (data) => {
       console.log (data);
       const { topic, data: value } = data;
