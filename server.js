@@ -1,7 +1,7 @@
 const express = require('express');
 const mqtt = require('mqtt');
 const http = require('http');
-const cors = require('cors');
+// const cors = require('cors');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const SensorData = require('./models/SensorData'); // Import SensorData model
@@ -18,12 +18,12 @@ const io = socketIo(server, {
 });
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.static('public')); // Serve frontend
 
 // MQTT Setup
-const mqttBrokerUrl = 'mqtt://127.0.0.1'; 
+const mqttBrokerUrl = 'mqtt://127.0.0.1:1883'; 
 const mqttClient = mqtt.connect(mqttBrokerUrl, {
   username: 'smarthome',
   password: 'asdffdsa',
@@ -127,5 +127,5 @@ app.get('/api/sensors', (req, res) => {
 // Start Server
 const PORT = 3000;
 server.listen(PORT, () => {
-  console.log(`Server running at http://127.0.0.1:3000`);
+  console.log(`Server running at http://127.0.0.1:${PORT}`);
 });
