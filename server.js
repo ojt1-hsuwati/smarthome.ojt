@@ -8,7 +8,6 @@ const SensorData = require('./models/SensorData'); // Import SensorData model
 const RelayControl = require('./models/RelayControl'); // Import RelayControl model
 const moment = require('moment');
 const app = express();
-app.use(cors());
 
 
 const server = http.createServer(app);
@@ -19,6 +18,7 @@ const io = socketIo(server, {
 });
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public')); // Serve frontend
 
