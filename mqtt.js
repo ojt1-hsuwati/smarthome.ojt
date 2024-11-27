@@ -4,7 +4,7 @@ const SENSOR_TOPIC = 'esp32/sensors';
 const CONTROL_TOPIC = 'esp32/controls';
 
 // MQTT Broker Configuration
-export const client = mqtt.connect('mqtt://192.168.0.118', {
+export const client = mqtt.connect('mqtt://192.168.0.118:1883', {
   username: 'smarthome',
   password: 'asdffdsa',
 });

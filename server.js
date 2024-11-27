@@ -11,19 +11,15 @@ const app = express();
 
 
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: ['*','http://127.0.0.1:3000', 'http://192.168.0.118:3000']
-  }
-});
+const io = socketIo(server);
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.static('public')); // Serve frontend
 
 // MQTT Setup
-const mqttBrokerUrl = 'mqtt://127.0.0.1:1883'; 
+const mqttBrokerUrl = 'mqtt://192.168.0.118:1883'; 
 const mqttClient = mqtt.connect(mqttBrokerUrl, {
   username: 'smarthome',
   password: 'asdffdsa',
@@ -38,7 +34,7 @@ const topics = {
 };
 
 //MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1:27017/smarthome')
+mongoose.connect('mongodb://192.168.0.118:27017/smarthome')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log('MongoDB connection error:', err));
 
@@ -127,5 +123,5 @@ app.get('/api/sensors', (req, res) => {
 // Start Server
 const PORT = 3000;
 server.listen(PORT, () => {
-  console.log(`Server running at http://127.0.0.1:${PORT}`);
+  console.log(`Server running at http://192.168.0.118:${PORT}`);
 });
