@@ -124,5 +124,5 @@ app.get('/api/sensors', (req, res) => {
 // Start Server
 const PORT = 3000;
 server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:3000`);
+  console.log(`Server running at http://192.168.0.118:3000`);
 });
