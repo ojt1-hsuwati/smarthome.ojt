@@ -77,6 +77,27 @@
         .then(() => alert(`Relay ${relay} is now ${state}`))
         .catch((err) => console.error(err));
     }
+
+    function updateDateTime() {
+      const now = new Date(); // Get the current date and time
+      const formattedDate = now.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false, // Use 24-hour format; set to true for 12-hour format
+      });
+
+      document.getElementById('date').textContent = formattedDate; // Update the content
+    }
+
+    // Update the date and time every second
+    setInterval(updateDateTime, 1000);
+
+    // Initialize the display immediately
+    updateDateTime()
     
   </script>
 </head>
