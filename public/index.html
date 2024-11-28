@@ -46,7 +46,6 @@
       if (topic.includes('humidity')) document.getElementById('humidity').textContent = value;
       if (topic.includes('distance')) document.getElementById('distance').textContent = value;
       if (topic.includes('date')) document.getElementById('date').textContent = value;
-      // if (topic.includes('time')) document.getElementById('time').textContent = value;
     });
     socket.on('buttonColorChange', (data)=>{
       console.log(data);
