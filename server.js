@@ -85,17 +85,22 @@ mqttClient.on('message', (topic, message) => {
       .then(() => console.log('Sensor data saved'))
       .catch(err => console.log('Error saving sensor data:', err));
 
+// Send the current date immediately to the connected client
+  const initialDate = moment(new Date()).format("DD.MM.YYYY hh:mm:ss A");
+  io.emit('sensorData', { topic: 'date', data: initialDate });
+
       if (topic == topics.date){
-        // Start a timer to emit the date every second
-      setInterval(() => {
-      const date = moment(new Date()).format("DD.MM.YYYY hh:mm:ss A");
-      io.emit('sensorData', { topic, data: date });
-     }, 1000); // Every second
+// Start sending real-time date updates every second
+      const intervalId = setInterval(() => {
+      const currentDate = moment(new Date()).format("DD.MM.YYYY hh:mm:ss A");
+      io.emit('sensorData', { topic: 'date', data: currentDate });
+  }, 1000);
       } else {
       io.emit('sensorData', { topic, data });
 }
   }
 });
+
 
   
   
