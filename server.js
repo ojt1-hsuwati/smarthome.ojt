@@ -87,13 +87,13 @@ mqttClient.on('message', (topic, message) => {
 
 // Send the current date immediately to the connected client
   const initialDate = moment(new Date()).format("DD.MM.YYYY hh:mm:ss A");
-  io.emit('sensorData', { topic: 'date', data: initialDate });
+  io.emit('sensorData', { topic: 'topic', data: initialDate });
 
       if (topic == topics.date){
 // Start sending real-time date updates every second
       const intervalId = setInterval(() => {
       const currentDate = moment(new Date()).format("DD.MM.YYYY hh:mm:ss A");
-      io.emit('sensorData', { topic: 'date', data: currentDate });
+      io.emit('sensorData', { topic: 'topic', data: currentDate });
   }, 1000);
       } else {
       io.emit('sensorData', { topic, data });
