@@ -86,11 +86,14 @@ mqttClient.on('message', (topic, message) => {
       .catch(err => console.log('Error saving sensor data:', err));
 
       if (topic == topics.date){
-        const date = moment(new Date()).format("DD.MM.YYYY hh:mm A");
-        io.emit('sensorData', { topic, data : date });
-      }else{
-        io.emit('sensorData', { topic, data });
-      }
+        // Start a timer to emit the date every second
+      setInterval(() => {
+      const date = moment(new Date()).format("DD.MM.YYYY hh:mm:ss A");
+      io.emit('sensorData', { topic, data: date });
+     }, 1000); // Every second
+      } else {
+      io.emit('sensorData', { topic, data });
+}
   }
 });
 
