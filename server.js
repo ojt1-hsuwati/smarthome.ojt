@@ -13,6 +13,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+const socket = io('http://192.168.0.118:1883', {
+  transports: ['websocket', 'polling'], // Ensure compatibility
+});
+
+socket.on('connect', () => {
+  console.log('Connected to the server');
+});
 // Middleware
 // app.use(cors());
 app.use(express.json());
@@ -100,9 +107,6 @@ mqttClient.on('message', (topic, message) => {
 }
   }
 });
-
-
-  
   
 
 // API for Relay Control
