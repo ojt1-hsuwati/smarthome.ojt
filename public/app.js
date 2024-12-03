@@ -1,4 +1,4 @@
-const apiUrl = 'http://192.168.0.113:3000';
+const apiUrl = 'http://192.168.0.118:3000';
 
 // Fetch sensor data
 async function fetchSensorData() {

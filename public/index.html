@@ -12,11 +12,9 @@
       background-image: url('bgphoto.png');
       background-repeat: no-repeat; 
       background-size: cover;
-      position: relative;
-
-      /* background-color: #19df9a;   Light gray background  */
     }
   </style>
+  
 </head>
 <body>
   <h1>Smart Home Control</h1>
@@ -26,80 +24,61 @@
     <h3>Humidity: <span id="humidity">--</span> %</h3>
     <h3>Distance: <span id="distance">--</span> cm</h3>
     <h3>Date: <span id="date">--</span></h3>
-
   </div>
+
   <div>
     <h3>Control Relays</h3>
-    <button onclick="controlRelay('light', 'on')" id="lighton">Light ON</button>
-    <button onclick="controlRelay('light', 'off')" id="lightoff">Light OFF</button>
-    <button onclick="controlRelay('socket', 'on')" id="socketon">Socket ON</button>
-    <button onclick="controlRelay('socket', 'off')" id="socketoff">Socket OFF</button>
+    <button onclick="handleControl('light', 'on')" id="lighton">Light ON</button>
+    <button onclick="handleControl('light', 'off')" id="lightoff">Light OFF</button>
+    <button onclick="handleControl('socket', 'on')" id="socketon">Socket ON</button>
+    <button onclick="handleControl('socket', 'off')" id="socketoff">Socket OFF</button>
   </div>
-  <script src="https://cdn.socket.io/4.8.0/socket.io.min.js" integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd" crossorigin="anonymous"></script>
+
+  
+  <script>
+
+      function updateDateTime() {
+        const now = new Date();
+        const formattedDate = now.toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+        document.getElementById('date').textContent = formattedDate;
+
+        console.log('date time');
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+
+  </script>
+  <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-    const socket = io('http://192.168.0.118:3000');
+  <script>
+    const socket = io('http://127.0.0.1:1883');
+
     socket.on('sensorData', (data) => {
-      console.log (data);
+      console.log(data);
       const { topic, data: value } = data;
       if (topic.includes('temperature')) document.getElementById('temperature').textContent = value;
       if (topic.includes('humidity')) document.getElementById('humidity').textContent = value;
       if (topic.includes('distance')) document.getElementById('distance').textContent = value;
-      if (topic.includes('date')) document.getElementById('date').textContent = value;
     });
-    socket.on('buttonColorChange', (data)=>{
-      console.log(data);
-     if (data.relay == 'light'){
-      if (data.color == 'green'){
-        document.getElementById('lightoff').style.backgroundColor = ""
-        document.getElementById('lighton').style.backgroundColor = data.color
-      }else{
-        document.getElementById('lightoff').style.backgroundColor = data.color
-        document.getElementById('lighton').style.backgroundColor = ""
-      }
 
-     }
-     if (data.relay == 'socket'){
-      if (data.color == 'green'){
-        document.getElementById('socketoff').style.backgroundColor = ""
-        document.getElementById('socketon').style.backgroundColor = data.color
-      }else{
-        document.getElementById('socketoff').style.backgroundColor = data.color
-        document.getElementById('socketon').style.backgroundColor = ""
-      }
+    socket.on('connect_error', (err) => {
+      console.error('Socket.IO connection error:', err);
+    });
 
-     } 
+    function handleControl(relay, state) {
 
-    })
-
-    function controlRelay(relay, state) {
       axios.post('/api/relay', { relay, state })
         .then(() => alert(`Relay ${relay} is now ${state}`))
         .catch((err) => console.error(err));
     }
-
-    function updateDateTime() {
-      const now = new Date(); // Get the current date and time
-      const formattedDate = now.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false, // Use 24-hour format; set to true for 12-hour format
-      });
-
-      document.getElementById('date').textContent = formattedDate; // Update the content
-    }
-
-    // Update the date and time every second
-    setInterval(updateDateTime, 1000);
-
-    // Initialize the display immediately
-    updateDateTime()
-    
   </script>
-</head>
 </body>
 </html>
